@@ -1,0 +1,5 @@
+tmux new-session
+    prefix + Ctrl-s - save
+    prefix + Ctrl-r - restore
+tmux attach
+tmux kill

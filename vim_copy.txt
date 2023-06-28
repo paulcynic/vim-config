@@ -1,0 +1,41 @@
+SSH
+
+You can also use a clipboard on remote machines if you enable X11 forwarding over SSH. This is especially useful with the above tip since you can then use xclip to access your desktop's clipboard. The Vim on the machine you're ssh-ing to will still need the +clipboard feature.
+
+This requires the ForwardX11Trusted setting, and should only be done with trusted servers, as this gives the server almost complete control over your X11 session:
+
+$ ssh -XY myhost
+
+To make these settings persistent (so you don't need to add -XY every time), you could do something like this in your ~/.ssh/config:
+
+# Do **NOT** set this globally; it gives the server complete control over
+# your X11 session.
+Host myhost
+    ForwardX11 yes
+    ForwardX11Trusted yes
+
+Поменять кнопки Caps on Ctrl
+additional: change Caps to Ctrl - setxkbmap -option ctrl:nocaps
+	  : switch Caps to Crtl - setxkbmap -option ctrl:swapcaps
+
+установить прогу для копирвания в буфер обмена ос
+alias xclip="xclip -sel c"
+echo something | xclip
+Ctrl+V
+
+заменить все слова на странице одновременно
+:%s/foo/bar/gc
+
+
+How to setup vim to use clipboard on Fedora
+
+Jan 19, 2019 ‐ vim, fedora,
+
+Install vimx: sudo dnf install -y vim-X11
+Add set clipboard=unnamedplus to your .vimrc
+Add alias vim=vimx to your .bashrc or .zshrc. This is important because vim binary isn’t built with +clipboard support.
+To use mouse set set mouse=a in your .vimrc
+
+
+Зайти на виртуалку по scp
+nvim scp://user@domen.com/

@@ -1,0 +1,29 @@
+sudo apt install tmux 
+
+Requirements:
+
+    tmux >= 2.3 (soon >= 2.4) running inside Linux, Mac, OpenBSD, Cygwin or WSL
+    awk, perl and sed
+    outside of tmux, $TERM must be set to xterm-256color
+
+To install, run the following from your terminal: (you may want to backup your existing ~/.tmux.conf first)
+
+$ cd
+$ git clone https://github.com/gpakosz/.tmux.git
+$ ln -s -f .tmux/.tmux.conf
+$ cp .tmux/.tmux.conf.local .
+
+If you're a Vim user, setting the $EDITOR environment variable to vim will enable and further customize the vi-style key bindings (see tmux manual).
+
+additional: change Caps to Ctrl - setxkbmap -option ctrl:nocaps
+	      : switch Caps to Crtl - setxkbmap -option ctrl:swapcaps
+In Gnome see Tweaks key layout to change
+Prefix+m включить мышь!!!
+
+# ~/.tmux.conf
+set-option -g prefix C-a
+set -g mouse on
+
+:source-file ~/.tmux.conf
+tmux source-file ~/.tmux.conf
+

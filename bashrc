@@ -86,6 +86,26 @@ fi
 
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+	for rc in ~/.bashrc.d/*; do
+		if [ -f "$rc" ]; then
+			. "$rc"
+		fi
+	done
+fi
+
+unset rc
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -93,53 +113,44 @@ alias la='ls -A'
 alias l='ls -CF'
 alias clean_py='find . -name "*.py[co]" -o -name __pycache__ -exec rm -rf {} +'
 alias clspy='find . -name "*.py[co]" -o -name __pycache__ -o -name venv -exec rm -rf {} +'
+alias docrmall='docker rm -f $(docker ps -aq)'
+alias chmodrd='find . -type d -exec sudo chmod 755 {} \+'
+alias pasgen='cat /dev/urandom | tr -cd "a-zA-Z0-9" | head -c 8'
 
-alias vd='/home/paulcynic/automatization/video_timecount/video_dur.py'
+# Kubernetes
+alias k='kubectl'
+alias kg='kubectl get'
+alias ks='kubectl set'
+alias ka='kubectl apply'
+alias kd='kubectl describe'
+alias kgpo='kubectl get pod'
+alias krm='kubectl delete'
+alias kinfo='kubectl get pods --all-namespaces -o wide'
+alias konf='mv ~/.kube/admin.conf ~/.kube/config && chmod 600 ~/.kube/config'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+#alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
-setxkbmap -option ctrl:nocaps
-
-
-# GOPATH DIRS
+#export GOPATH=/home/fedora/go
+#GOPATH MUST BE OUTSIDE OF GOROOT directory!!!
+export GO111MODULE=on
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin
-#export GOPATH="/home/paulcynic/gocode"
 
-# MAIN BIN PATHES
-export PATH=$PATH:$HOME/.bin/
-export PATH=$PATH:/home/paulcynic/.python3.9/bin/
-export PATH=$PATH:/var/lib/pgsql13/bin/
-export PATH=$PATH:/home/paulcynic/automatization/video_timecount
-export PATH=$PATH:$HOME/.poetry/bin
+# k8s bash autocomplete
+#source '$HOME/.kube/completion.bash.inc'
+#source <(kubectl completion bash)
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# For Mac OS
+# ~/.zshrc
+#export CLICOLOR=1
+#export LSCOLORS=GxFxCxDxBxegedabagaced
+#export PROMT="%F{green}%n@%m%f: %F{cyan}%~ %#%f "
 
-export VISUAL=nvim;
-export EDITOR=nvim;
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export EDITOR=vim

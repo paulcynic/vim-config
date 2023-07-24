@@ -107,6 +107,12 @@ fi
 
 unset rc
 
+
+
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
@@ -152,5 +158,12 @@ export PATH=$PATH:/usr/local/go/bin
 #export CLICOLOR=1
 #export LSCOLORS=GxFxCxDxBxegedabagaced
 #export PROMT="%F{green}%n@%m%f: %F{cyan}%~ %#%f "
+
+#Language
+#export LANGUAGE=ru_RU.UTF-8
+#export LANG=ru_RU.UTF-8
+#export LC_CTYPE=en_US.UTF-8
+#export LC_ALL=
+
 
 export EDITOR=vim

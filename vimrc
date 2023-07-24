@@ -1,64 +1,26 @@
-"$ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-"  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+set nocompatible
+filetype off    " required
 
-"Create a ~/.vimrc file (if you don't have one already), and enter this text:
-
-"call plug#begin()
-"Plug 'preservim/NERDTree'
-"call plug#end()
-
-
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-" Install Vundle as command below v
-" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
+" call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-Plugin 'flazz/vim-colorschemes'
-Plugin 'tpope/vim-surround'
-
-
-
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'flazz/vim-colorschemes'
+" Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-sensible'
+" Plug 'junegunn/seoul256.vim'
+" let Vundle manage Vundle, required
+" Plug 'tpope/vim-fugitive'
+" Plug 'git://git.wincent.com/command-t.git'
+" Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
-
-" All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+filetype plugin indent on
+
+colorscheme gruvbox
+set background=dark
+set guifont=Monaco:h18
 
 " Настройки табов для Python, согласно рекоммендациям
 set tabstop=4
@@ -102,21 +64,25 @@ set noswapfile
 set encoding=utf-8 " Кодировка файлов по умолчанию
 set fileencodings=utf8,cp1251
 
-set clipboard=unnamed
+set clipboard=unnamedplus
 set ruler
 set number
-
+set scrolloff=7
+set fileformat=unix
+set hlsearch
 set hidden
-nnoremap <C-N> :bnext<CR>
-nnoremap <C-P> :bprev<CR>
-
-set guifont=Monaco:h18
 
 " nnoremap <C-y> "+y
 " vnoremap <C-y> "+y
 " nnoremap <C-p> "+p
 " vnoremap <C-p> "+p
 
+"No highlited search
+nnoremap <A-j> :nohlsearch<CR>
+inoremap <A-k> <esc>
+
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
 " copy and paste
 vmap <C-c> "+yi
 vmap <C-x> "+c
